@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Griffy&family=Rye&display=swap" rel="stylesheet">
+    <title>FESTA MEXICANA TND20</title>
+
+    <!-- CSS Integrado -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d3a248;
+            padding: 40px; /* espaçamento do topo */
+            
+        }
+        .img-inicial {
+            width: 100%;
+            margin-bottom: 40px; /* espaço entre a imagem e o container */
+            overflow: hidden; /* força a div a respeitar a imagem */
+        }
+
+        .img-inicial img {
+            display: block;       /* evita espaço abaixo da imagem */
+            margin: 0 auto;       /* centraliza horizontalmente */
+            height: 350px;        /* altura controlada */
+            width: auto;          /* mantém proporção */
+            object-fit: cover;    /* corta se necessário, mas mantém aparência */
+        }
+        .wrapper-centralizado {
+            position: relative;
+            display: flex;
+            justify-content: center; /* centraliza o formulário */
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+            font-family: "Newsreader", serif;
+            z-index: 1; /* garante que fique na frente da imagem */
+        }
+        .lado-imagem-externa,
+        .lado-imagem-direita {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            top: 50%; /* alinha verticalmente ao meio */
+            transform: translateY(-50%);
+        }
+        .lado-imagem-externa {
+            left: calc(50% - 400px / 2 - 100px); /* colada à esquerda do form */
+        }
+
+        .lado-imagem-direita {
+            right: calc(50% - 400px / 2 - 100px); /* colada à direita do form */
+        }
+
+        .lado-imagem-externa img,
+        .lado-imagem-direita img {
+            max-width: 100%;
+            height: auto;
+        }
+        .titulo {
+            padding: 5px;
+            text-align: center;
+            font-family: "Rye", serif;
+            font-size: 15px;
+            padding-bottom: 0;
+        }
+        .tituloh3 {
+            padding: 0px;
+            text-align: center;
+            font-family: "Rye", serif;
+            font-size: 15px;
+        }
+        .titulo2 {
+           padding: 10px;
+           text-align: center;
+           font-family: "Newsreader", serif;
+           font-size: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 80%;
+            padding: 10px;
+            background-color: #208131;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #013d0b;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #confirmation-message {
+            font-size: 1.2rem;
+            color: #b8690f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="img-inicial">
+        <img src="./6cf49d64-99e9-4572-b4b0-a87ccf995e67-removebg-preview.png" alt="Imagem">
+    </div>
+    <div class="titulo">
+        <h2>A turma 20 do Técnico em Nutrição e Dietética </h2> 
+    </div>
+    <div class="tituloh3">
+        <h2>te convida para uma manhã mexicana</h2>
+    </div>
+    <div class="titulo2">
+        <h3>03/11/2025  | 10:00</h3>
+        <h4>5° ANDAR/ SALA E BAR</h4>
+    </div>
+    </div>
+   <div class="bloco-horizontal">
+    <!-- Imagem ao lado -->
+    <div class="wrapper-centralizado">
+    <!-- Imagem colada ao formulário -->
+    <div class="lado-imagem-externa">
+        <img src="./f911a438-3480-4550-884c-6b613e25fca0-removebg-preview.png" alt="Imagem decorativa">
+    </div>
+    <div class="lado-imagem-direita">
+        <img src="./8d0398a1-128a-4e74-8df8-16ac1558405c-removebg-preview.png" alt="Imagem direita">
+    </div>
+    <!-- Formulário dentro do container branco -->
+     <div class="container">
+        <h1>Confirme sua Presença</h1>
+        <form id="attendance-form">
+            <input type="text" id="name" name="from_name" placeholder="Nome e Curso/Área" required>
+            <button type="submit">Confirmar Presença</button>
+        </form>
+        <div id="confirmation-message" class="hidden">
+            <p>¡Muchas gracias! <span id="user-name"></span>!</p>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('0Em5F6qSoP0aMlc46');
+
+        document.getElementById("attendance-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Envia os dados do formulário via EmailJS
+        emailjs.sendForm("service_bitb8jl", "template_pkcci7x", this)
+         .then(function() {
+        // Exibe a mensagem de confirmação
+        const name = document.getElementById("name").value;
+        document.getElementById("confirmation-message").classList.remove("hidden");
+        document.getElementById("user-name").textContent = name;
+
+        // Esconde o formulário
+        document.getElementById("attendance-form").classList.add("hidden");
+        }, function(error) {
+        alert("Erro ao enviar confirmação: " + JSON.stringify(error));
+        });
+     });
+    </script>
+</body>
+</html>
